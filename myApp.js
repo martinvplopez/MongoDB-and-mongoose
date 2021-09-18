@@ -67,27 +67,46 @@ const findEditThenSave = (personId, done) => {
     });
   })
 };
-
+// Newer method to update
 const findAndUpdate = (personName, done) => {
   const ageToSet = 20;
-
-  done(null /*, data*/);
+  Person.findOneAndUpdate({"name":personName}, {"age":ageToSet},{new:true},(err, person)=>{
+    if(err) return console.log(err);
+    done(null,person);
+  });
 };
 
+// Removig a document. Model.deleteOne()
+// Model.remove() doesn’t return the deleted document, but a JSON object containing the outcome of the operation, and the number of items affected
 const removeById = (personId, done) => {
-  done(null /*, data*/);
+  Person.findByIdAndRemove(personId, (err,person)=>{
+    if(err) return console.log(err);
+    done(null,person);
+  })
 };
 
+// Better to use Model.deleteMany().
 const removeManyPeople = (done) => {
   const nameToRemove = "Mary";
+  Person.remove({"name": nameToRemove},(err,person)=>{
+    if(err) return console.log(err);
+    done(null,person);
+  });
 
-  done(null /*, data*/);
 };
-
+// Chaining query helpers
 const queryChain = (done) => {
   const foodToSearch = "burrito";
+  let querySaved= Person
+  .find({"favoriteFoods":foodToSearch})
+  .sort({name:1})
+  .limit(2)
+  .select({age:0});
+  querySaved.exec((err,person)=>{
+    if(err) return console.log(err);
+    done(null,person);
+  })
 
-  done(null /*, data*/);
 };
 
 /** **Well Done !!**
