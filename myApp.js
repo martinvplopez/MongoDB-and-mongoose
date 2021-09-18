@@ -12,7 +12,7 @@ let personSchema=new Schema({
 }) ;
 
 let Person=mongoose.model("Person", personSchema);
-// Creating a new document instance and saving it in the DB
+// Creating a new document instance and saving it.
 const createAndSavePerson = (done) => {
   let martin= new Person({name:"Martín", age:20,favoriteFoods: ["pizza", "protein"]});
   martin.save((error,data)=>{
