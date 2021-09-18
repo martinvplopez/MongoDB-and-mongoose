@@ -23,16 +23,13 @@ const createAndSavePerson = (done) => {
     }
   });
 };
-
+// Creating new document instances in the same function and saving it in the DB
 const createManyPeople = (arrayOfPeople, done) => {
-  Person.create(arrayOfPeople, (err,data){
-    if(err){
-      console.log(err);
-    }else{
-      done(null, data);
-    }
-  })
-};
+  Person.create(arrayOfPeople, (err,data)=>{
+    if(err) return console.log(err);
+    done(null,data);
+  });
+}
 
 const findPeopleByName = (personName, done) => {
   done(null /*, data*/);
