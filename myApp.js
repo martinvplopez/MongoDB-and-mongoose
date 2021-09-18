@@ -1,8 +1,10 @@
 require('dotenv').config();
 const { Schema, Number } = require('mongoose');
 let mongoose=require("mongoose");
+// Connecting to Mongo Atlas Cluster (DB server)
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
+// Creating a "Schema" which is an entity with its attributes
 let personSchema=new Schema({
   name: { type: String, required: true },
   age: Number,
@@ -10,7 +12,7 @@ let personSchema=new Schema({
 }) ;
 
 let Person=mongoose.model("Person", personSchema);
-
+// Creating a new document instance and saving it in the DB
 const createAndSavePerson = (done) => {
   let martin= new Person({name:"Martín", age:20,favoriteFoods: ["pizza", "protein"]});
   martin.save((error,data)=>{
