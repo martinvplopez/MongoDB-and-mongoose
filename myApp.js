@@ -47,9 +47,13 @@ const findOneByFood = (food, done) => {
     done(null,person);
   })
 };
-
+// Finding by the _id (default alphanumeric key, unique)
 const findPersonById = (personId, done) => {
-  done(null /*, data*/);
+  Person.findById(personId, (err,person)=>{
+    if(err) return console.log(err);
+    console.log(person);
+    done(null,person);
+  })
 };
 
 const findEditThenSave = (personId, done) => {
