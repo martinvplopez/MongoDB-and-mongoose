@@ -30,17 +30,22 @@ const createManyPeople = (arrayOfPeople, done) => {
     done(null,data);
   });
 }
-// Adding a find query
+// Adding a find query(will return every match)
 const findPeopleByName = (personName, done) => {
-  Person.find(personName, (err,person)=>{
+  Person.find({"name":personName}, (err,person)=>{
     if(err) return console.log(err);
+    console.log(person);
     done(null,person);
   });
   
 };
-
+// Adding a find query(will return only one match)
 const findOneByFood = (food, done) => {
-  done(null /*, data*/);
+  Person.findOne({"favoriteFoods":food}, (err,person)=>{
+    if(err) return console.log(err);
+    console.log(person);
+    done(null,person);
+  })
 };
 
 const findPersonById = (personId, done) => {
